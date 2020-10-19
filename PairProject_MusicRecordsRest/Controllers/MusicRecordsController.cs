@@ -13,16 +13,24 @@ namespace PairProject_MusicRecordsRest.Controllers
     [ApiController]
     public class MusicRecordsController : ControllerBase
     {
-        static List<MusicRecord> liste = new List<MusicRecord>()
+        private static List<MusicRecord> list = new List<MusicRecord>()
         {
             new MusicRecord("Boom", "Slash", 1680, 1997),
-            new MusicRecord("My Man", "Christiana", )
+            new MusicRecord("My Man", "Christiana", 900, 1986),
+            new MusicRecord("Aathma", "Persefone", 4500, 2014),
+            new MusicRecord("Jeg har en hund med fire poter albummet", "Shubidua", Int32.MaxValue, Int32.MinValue)
         };
+
+        public List<MusicRecord> List
+        {
+            get { return list; }
+        }
+
         // GET: api/<MusicRecordsController>
         [HttpGet]
         public IEnumerable<MusicRecord> Get()
         {
-            return 
+            return list;
         }
 
         // GET api/<MusicRecordsController>/5

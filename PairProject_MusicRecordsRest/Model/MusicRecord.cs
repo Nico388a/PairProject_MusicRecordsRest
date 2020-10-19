@@ -48,5 +48,10 @@ namespace PairProject_MusicRecordsRest.Model
             _duration = duration;
             _yearOfPublication = yearOfPublication;
         }
+
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }
