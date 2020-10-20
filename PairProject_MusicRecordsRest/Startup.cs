@@ -30,7 +30,7 @@ namespace PairProject_MusicRecordsRest
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("mySwagger", new OpenApiInfo {Title = "Items API", Version = "v1.0"});
+                c.SwaggerDoc("MusicRecords", new OpenApiInfo {Title = "MusicRecords API", Version = "v1.0"});
             });
         }
 
@@ -48,7 +48,7 @@ namespace PairProject_MusicRecordsRest
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/mySwagger/swagger.json", "Items API v1.0");
+                c.SwaggerEndpoint("/swagger/MusicRecords/swagger.json", "MusicRecords API v1.0");
                 c.RoutePrefix = "api/help";
             });
 
