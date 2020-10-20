@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace PairProject_MusicRecordsRest
 {
@@ -26,6 +27,11 @@ namespace PairProject_MusicRecordsRest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("mySwagger", new OpenApiInfo {Title = "Items API", Version = "v1.0"});
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +43,14 @@ namespace PairProject_MusicRecordsRest
             }
 
             app.UseRouting();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/mySwagger/swagger.json", "Items API v1.0");
+                c.RoutePrefix = "api/help";
+            });
 
             app.UseAuthorization();
 
