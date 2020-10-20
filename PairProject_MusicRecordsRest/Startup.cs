@@ -28,6 +28,14 @@ namespace PairProject_MusicRecordsRest
         {
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Pol1", builder =>
+                {
+                    builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("MusicRecords", new OpenApiInfo {Title = "MusicRecords API", Version = "v1.0"});
@@ -51,6 +59,8 @@ namespace PairProject_MusicRecordsRest
                 c.SwaggerEndpoint("/swagger/MusicRecords/swagger.json", "MusicRecords API v1.0");
                 c.RoutePrefix = "api/help";
             });
+
+            app.UseCors("Pol1");
 
             app.UseAuthorization();
 
