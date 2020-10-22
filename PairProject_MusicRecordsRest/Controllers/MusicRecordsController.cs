@@ -34,10 +34,22 @@ namespace PairProject_MusicRecordsRest.Controllers
         }
 
         // GET api/<MusicRecordsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("{search?}")]
+        public IEnumerable<MusicRecord> Get([FromQuery] MusicRecordQuery query)
         {
-            return "value";
+            List<MusicRecord> filteredList = new List<MusicRecord>();
+
+            if (query.Title == null) query.Title = "";
+            if (query.Artist == null) query.Artist = "";
+            if (query.MaxDuration <= 0) query.MaxDuration = Int32.MaxValue;
+            if (query.YearOfPublication <= 0) query.YearOfPublication = Int32.MinValue;
+
+            filteredList = list.FindAll(record =>
+                record.Duration <= query.MaxDuration && record.Artist.StartsWith(query.Artist) &&
+                record.Title.StartsWith(query.Title) && record.YearOfPublication >= query.YearOfPublication);
+
+            return filteredList;
         }
 
         // POST api/<MusicRecordsController>
