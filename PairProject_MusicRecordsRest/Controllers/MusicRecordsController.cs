@@ -36,7 +36,7 @@ namespace PairProject_MusicRecordsRest.Controllers
         // GET api/<MusicRecordsController>/5
         [HttpGet]
         [Route("{search?}")]
-        public IEnumerable<MusicRecord> Get([FromQuery] MusicRecordQuery query)
+        public IEnumerable<MusicRecord> Search([FromQuery] MusicRecordQuery query)
         {
             List<MusicRecord> filteredList = new List<MusicRecord>();
 
