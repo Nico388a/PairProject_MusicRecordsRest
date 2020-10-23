@@ -37,6 +37,7 @@ namespace PairProject_MusicRecordsRestTests
             IWebElement inputArtist = _driver.FindElement(By.Id("artist"));
             IWebElement inputDuration = _driver.FindElement(By.Id("duration"));
             IWebElement inputYearOfPublication = _driver.FindElement(By.Id("year of publication"));
+            IWebElement inputDeleteArtist = _driver.FindElement(By.Id("deleteArtist"));
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             IWebElement musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
 
@@ -62,6 +63,12 @@ namespace PairProject_MusicRecordsRestTests
             musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
 
             Assert.IsTrue(musicList.Text.Contains("Gilan")&& musicList.Text.Contains("800") && musicList.Text.Contains("2005"));
+
+            IWebElement deleteButton = _driver.FindElement(By.Id("deleteButton"));
+            inputDeleteArtist.SendKeys("Gilan");
+            deleteButton.Click();
+            IWebElement deleteText = wait.Until(d => d.FindElement(By.Id("deleteText"))); 
+            Assert.IsTrue(deleteText.Text.Contains("Deleted items: "));
         }
     }
 }
