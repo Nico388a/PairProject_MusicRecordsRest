@@ -36,6 +36,7 @@ namespace PairProject_MusicRecordsRestTests
             IWebElement musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
 
             Assert.IsTrue(musicList.Text.Contains("Boom"));
+
         }
     }
 }

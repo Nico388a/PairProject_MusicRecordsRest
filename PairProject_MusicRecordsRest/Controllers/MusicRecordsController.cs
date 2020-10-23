@@ -54,8 +54,11 @@ namespace PairProject_MusicRecordsRest.Controllers
 
         // POST api/<MusicRecordsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Route("")]
+        public void Post([FromBody] MusicRecord value)
         {
+            
+            list.Add(value);
 
         }
 
