@@ -105,7 +105,7 @@ namespace PairProject_MusicRecordsRest.Controllers
         // DELETE api/<MusicRecordsController>/5
         [HttpDelete]
         [Route("{delete?}")]
-        public void Delete([FromQuery] MusicRecordQuery query)
+        public int Delete([FromQuery] MusicRecordQuery query)
         {
             Predicate<MusicRecord> condTitle, condArtist;
 
@@ -115,7 +115,8 @@ namespace PairProject_MusicRecordsRest.Controllers
             if (query.Artist != null) condArtist = m => m.Artist == query.Artist;
             else condArtist = True;
 
-
+            return list.RemoveAll(record => condArtist(record) && condTitle(record));
+            
 
             bool True(MusicRecord m)
             {

@@ -51,6 +51,15 @@ namespace PairProject_MusicRecordsRestTests
             Assert.AreEqual(arrange + 1, _controller.List.Count);
         }
 
+        [TestMethod]
+        public void DeleteTest()
+        {
+            int arrange = _controller.List.Count;
 
+            _controller.Delete(new MusicRecordQuery(){Title = "Boom"});
+
+            Assert.AreEqual(true, arrange > _controller.List.Count);
+        }
+        
     }
 }
