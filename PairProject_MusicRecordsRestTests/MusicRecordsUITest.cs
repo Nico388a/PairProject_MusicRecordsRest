@@ -33,6 +33,10 @@ namespace PairProject_MusicRecordsRestTests
             _driver.Navigate().GoToUrl("http://localhost:3000/");
             Assert.AreEqual("Hello app", _driver.Title);
 
+            IWebElement inputTitle = _driver.FindElement(By.Id("title"));
+            IWebElement inputArtist = _driver.FindElement(By.Id("artist"));
+            IWebElement inputDuration = _driver.FindElement(By.Id("duration"));
+            IWebElement inputYearOfPublication = _driver.FindElement(By.Id("year of publication"));
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             IWebElement musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
 
@@ -42,13 +46,22 @@ namespace PairProject_MusicRecordsRestTests
             testElement.Click();
 
             IWebElement searchButton = _driver.FindElement(By.Id("search button"));
-            IWebElement inputTitle = _driver.FindElement(By.Id("title"));
             inputTitle.SendKeys("Boom");
             searchButton.Click();
             musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
 
             Assert.IsTrue(musicList.Text.Contains("Boom"));
             Assert.IsFalse(musicList.Text.Contains("My Man"));
+
+            IWebElement addButton = _driver.FindElement(By.Id("add button"));
+            inputArtist.SendKeys("Gilan");
+            inputDuration.SendKeys("800");
+            inputYearOfPublication.SendKeys("2005");
+            addButton.Click();
+            testElement.Click();
+            musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
+
+            Assert.IsTrue(musicList.Text.Contains("Gilan")&& musicList.Text.Contains("800") && musicList.Text.Contains("2005"));
         }
     }
 }
