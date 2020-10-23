@@ -66,6 +66,7 @@ namespace PairProject_MusicRecordsRestTests
 
             IWebElement deleteButton = _driver.FindElement(By.Id("deleteButton"));
             inputDeleteArtist.SendKeys("Gilan");
+            
             deleteButton.Click();
             IWebElement deleteText = wait.Until(d => d.FindElement(By.Id("deleteText"))); 
             Assert.IsTrue(deleteText.Text.Contains("Deleted items: "));

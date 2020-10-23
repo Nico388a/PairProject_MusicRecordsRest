@@ -107,6 +107,8 @@ namespace PairProject_MusicRecordsRest.Controllers
         [Route("{delete?}")]
         public int Delete([FromQuery] MusicRecordQuery query)
         {
+            if (query.Artist == null && query.Title == null) return 0;
+
             Predicate<MusicRecord> condTitle, condArtist;
 
             if (query.Title != null) condTitle = m => m.Title == query.Title;
