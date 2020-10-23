@@ -103,13 +103,24 @@ namespace PairProject_MusicRecordsRest.Controllers
         }
 
         // DELETE api/<MusicRecordsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("{delete?}")]
+        public void Delete([FromQuery] MusicRecordQuery query)
         {
-        //    MusicRecord record = Get(id);
-        //    list.Remove(record);
+            Predicate<MusicRecord> condTitle, condArtist;
+
+            if (query.Title != null) condTitle = m => m.Title == query.Title;
+            else condTitle = True;
+
+            if (query.Artist != null) condArtist = m => m.Artist == query.Artist;
+            else condArtist = True;
 
 
+
+            bool True(MusicRecord m)
+            {
+                return true;
+            }
         }
     }
 }
