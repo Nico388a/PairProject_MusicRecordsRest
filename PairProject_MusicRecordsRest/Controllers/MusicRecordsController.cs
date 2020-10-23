@@ -40,16 +40,41 @@ namespace PairProject_MusicRecordsRest.Controllers
         {
             List<MusicRecord> filteredList = new List<MusicRecord>();
 
-            if (query.Title == null) query.Title = "";
-            if (query.Artist == null) query.Artist = "";
-            if (query.MaxDuration <= 0) query.MaxDuration = Int32.MaxValue;
-            if (query.YearOfPublication <= 0) query.YearOfPublication = Int32.MinValue;
+            //if (query.Title == null) query.Title = "";
+            //if (query.Artist == null) query.Artist = "";
+            //if (query.MaxDuration <= 0) query.MaxDuration = Int32.MaxValue;
+            //if (query.YearOfPublication <= 0) query.YearOfPublication = Int32.MinValue;
+
+            //filteredList = list.FindAll(record =>
+            //    record.Duration <= query.MaxDuration && record.Artist.StartsWith(query.Artist) &&
+            //    record.Title.StartsWith(query.Title) && record.YearOfPublication >= query.YearOfPublication);
+
+            //Still "static", but standardized.
+
+            Predicate<MusicRecord> condTitle, condArtist, condDuration, condYearOfPublication;
+
+            if (query.Title != null) condTitle = m => m.Title.StartsWith(query.Title);
+            else condTitle = True;
+
+            if (query.Artist != null) condArtist = m => m.Artist.StartsWith(query.Artist);
+            else condArtist = True;
+
+            if (query.MaxDuration > 0) condDuration = m => m.Duration <= query.MaxDuration;
+            else condDuration = True;
+
+            if (query.YearOfPublication > 0)
+                condYearOfPublication = m => m.YearOfPublication >= query.YearOfPublication;
+            else condYearOfPublication = True;
 
             filteredList = list.FindAll(record =>
-                record.Duration <= query.MaxDuration && record.Artist.StartsWith(query.Artist) &&
-                record.Title.StartsWith(query.Title) && record.YearOfPublication >= query.YearOfPublication);
+                condDuration(record) && condArtist(record) && condTitle(record) && condYearOfPublication(record));
 
             return filteredList;
+
+            bool True(MusicRecord m)
+            {
+                return true;
+            }
         }
 
         // POST api/<MusicRecordsController>
