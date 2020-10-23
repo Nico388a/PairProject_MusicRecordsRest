@@ -88,18 +88,18 @@ namespace PairProject_MusicRecordsRest.Controllers
 
         // PUT api/<MusicRecordsController>/5
         [HttpPut]
-        [Route("{id}")]
-        public void Put(int id, [FromBody] MusicRecord value)
+        [Route("{Put?}")]
+        public void Put([FromBody] MusicRecord value)
         {
-            //MusicRecord record = Get(id);
-            //if (record != null)
-            //{
-            //    record.Title = value.Title;
-            //    record.Artist = value.Artist;
-            //    record.Duration = value.Duration;
-            //    record.YearOfPublication = value.YearOfPublication;
+            MusicRecord record = Get();
+            if (record != null)
+            {
+                record.Title = value.Title;
+                record.Artist = value.Artist;
+                record.Duration = value.Duration;
+                record.YearOfPublication = value.YearOfPublication;
 
-            //}
+            }
         }
 
         // DELETE api/<MusicRecordsController>/5
