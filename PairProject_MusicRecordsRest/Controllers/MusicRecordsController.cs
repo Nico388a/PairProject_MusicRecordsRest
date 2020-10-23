@@ -79,7 +79,6 @@ namespace PairProject_MusicRecordsRest.Controllers
 
         // POST api/<MusicRecordsController>
         [HttpPost]
-        [Route("")]
         public void Post([FromBody] MusicRecord value)
         {
             

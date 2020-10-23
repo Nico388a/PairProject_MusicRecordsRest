@@ -41,11 +41,15 @@ namespace PairProject_MusicRecordsRestTests
         }
 
 
-        //[TestMethod]
-        //public void PostTest()
-        //{
-        //    int arrange = _controller.
-        //}
+        [TestMethod]
+        public void PostTest()
+        {
+            int arrange = _controller.List.Count;
+
+            _controller.Post(new MusicRecord());
+
+            Assert.AreEqual(arrange + 1, _controller.List.Count);
+        }
 
     }
 }

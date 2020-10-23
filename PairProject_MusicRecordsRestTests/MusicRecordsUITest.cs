@@ -41,11 +41,14 @@ namespace PairProject_MusicRecordsRestTests
             IWebElement testElement = _driver.FindElement(By.Id("testElement"));
             testElement.Click();
 
-            //IWebElement searchButton = _driver.FindElement(By.Id("search button"));
-            //IWebElement inputTitle = _driver.FindElement(By.Id("title"));
-            //inputTitle.SendKeys("Boom");
-            //searchButton.Click();
-            //_driver.
+            IWebElement searchButton = _driver.FindElement(By.Id("search button"));
+            IWebElement inputTitle = _driver.FindElement(By.Id("title"));
+            inputTitle.SendKeys("Boom");
+            searchButton.Click();
+            musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
+
+            Assert.IsTrue(musicList.Text.Contains("Boom"));
+            Assert.IsFalse(musicList.Text.Contains("My Man"));
         }
     }
 }
