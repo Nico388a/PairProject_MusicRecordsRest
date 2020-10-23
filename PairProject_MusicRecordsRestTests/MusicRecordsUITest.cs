@@ -37,6 +37,7 @@ namespace PairProject_MusicRecordsRestTests
 
             Assert.IsTrue(musicList.Text.Contains("Boom"));
 
+            IWebElement searchButton = _driver.FindElement(By.Id("search button"));
         }
     }
 }
