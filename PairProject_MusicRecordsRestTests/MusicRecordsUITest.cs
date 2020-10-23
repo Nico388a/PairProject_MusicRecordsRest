@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -37,7 +38,14 @@ namespace PairProject_MusicRecordsRestTests
 
             Assert.IsTrue(musicList.Text.Contains("Boom"));
 
-            IWebElement searchButton = _driver.FindElement(By.Id("search button"));
+            IWebElement testElement = _driver.FindElement(By.Id("testElement"));
+            testElement.Click();
+
+            //IWebElement searchButton = _driver.FindElement(By.Id("search button"));
+            //IWebElement inputTitle = _driver.FindElement(By.Id("title"));
+            //inputTitle.SendKeys("Boom");
+            //searchButton.Click();
+            //_driver.
         }
     }
 }
