@@ -15,10 +15,10 @@ namespace PairProject_MusicRecordsRest.Controllers
     {
         private static List<MusicRecord> list = new List<MusicRecord>()
         {
-            new MusicRecord("Boom", "Slash", 1680, 1997),
-            new MusicRecord("My Man", "Christiana", 900, 1986),
-            new MusicRecord("Aathma", "Persefone", 4500, 2014),
-            new MusicRecord("Jeg har en hund med fire poter albummet", "Shubidua", Int32.MaxValue, Int32.MinValue)
+            new MusicRecord(1, "Boom", "Slash", 1680, 1997),
+            new MusicRecord(2, "My Man", "Christiana", 900, 1986),
+            new MusicRecord(3, "Aathma", "Persefone", 4500, 2014),
+            new MusicRecord(4, "Jeg har en hund med fire poter albummet", "Shubidua", Int32.MaxValue, Int32.MinValue)
         };
 
         public List<MusicRecord> List
@@ -31,6 +31,13 @@ namespace PairProject_MusicRecordsRest.Controllers
         public IEnumerable<MusicRecord> Get()
         {
             return list;
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public MusicRecord Get(int id)
+        {
+            return list.Find(record => record.Id == id);
         }
 
         // GET api/<MusicRecordsController>/5
@@ -81,24 +88,23 @@ namespace PairProject_MusicRecordsRest.Controllers
         [HttpPost]
         public void Post([FromBody] MusicRecord value)
         {
-            
+            int id = list[^1].Id + 1;
+            value.Id = id;
             list.Add(value);
-
         }
 
         // PUT api/<MusicRecordsController>/5
         [HttpPut]
-        [Route("{Put?}")]
-        public void Put([FromBody] MusicRecord value)
+        [Route("{id}")]
+        public void Put(int id, [FromBody] MusicRecord value)
         {
-            MusicRecord record = Get();
+            MusicRecord record = Get(id);
             if (record != null)
             {
                 record.Title = value.Title;
                 record.Artist = value.Artist;
                 record.Duration = value.Duration;
                 record.YearOfPublication = value.YearOfPublication;
-
             }
         }
 
