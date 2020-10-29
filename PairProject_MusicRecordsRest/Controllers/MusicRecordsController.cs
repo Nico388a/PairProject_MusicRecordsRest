@@ -34,7 +34,7 @@ namespace PairProject_MusicRecordsRest.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("find/{id}")]
         public MusicRecord Get(int id)
         {
             return list.Find(record => record.Id == id);
