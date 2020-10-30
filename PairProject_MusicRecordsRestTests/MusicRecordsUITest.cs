@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,12 +21,18 @@ namespace PairProject_MusicRecordsRestTests
         public static void ClassInit(TestContext context)
         {
             _driver = new ChromeDriver(DIRECTORY);
+            using (HttpClient client = new HttpClient())
+            {
+                var respnse = client.DeleteAsync(
+                    "https://pairprojectmusicrecordsrest20201020113611.azurewebsites.net/api/MusicRecords/clean").Result;
+            }
         }
 
         [ClassCleanup]
         public static void Clean()
         {
             _driver.Dispose();
+           
         }
 
         [TestMethod]
@@ -74,17 +81,17 @@ namespace PairProject_MusicRecordsRestTests
             Assert.IsTrue(deleteText.Text.Contains("Deleted items: "));
 
             IWebElement updateButton = _driver.FindElement(By.Id("update button"));
-            inputPutTitle.SendKeys("PUT TEST");
             IWebElement firsElement = _driver.FindElement(By.Id("titleCol"));
             firsElement.Click();
-            updateButton.Click();
+            inputPutTitle.SendKeys("PUT TEST");
             testElement.Click();
+            updateButton.Click();
 
             musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
             Assert.IsTrue(musicList.Text.Contains("PUT TEST"));
             Assert.IsFalse(musicList.Text.Contains("Boom"));
 
-            new MusicRecordsController().Clean();
+            
         }
     }
 }
