@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using PairProject_MusicRecordsRest.Controllers;
 
 namespace PairProject_MusicRecordsRestTests
 {
@@ -33,6 +34,7 @@ namespace PairProject_MusicRecordsRestTests
             _driver.Navigate().GoToUrl("http://localhost:3000/");
             Assert.AreEqual("Hello app", _driver.Title);
 
+            IWebElement inputPutTitle = _driver.FindElement(By.Id("putTitle"));
             IWebElement inputTitle = _driver.FindElement(By.Id("title"));
             IWebElement inputArtist = _driver.FindElement(By.Id("artist"));
             IWebElement inputDuration = _driver.FindElement(By.Id("duration"));
@@ -70,6 +72,19 @@ namespace PairProject_MusicRecordsRestTests
             deleteButton.Click();
             IWebElement deleteText = wait.Until(d => d.FindElement(By.Id("deleteText"))); 
             Assert.IsTrue(deleteText.Text.Contains("Deleted items: "));
+
+            IWebElement updateButton = _driver.FindElement(By.Id("update button"));
+            inputPutTitle.SendKeys("PUT TEST");
+            IWebElement firsElement = _driver.FindElement(By.Id("titleCol"));
+            firsElement.Click();
+            updateButton.Click();
+            testElement.Click();
+
+            musicList = wait.Until(d => d.FindElement(By.Id("musicList")));
+            Assert.IsTrue(musicList.Text.Contains("PUT TEST"));
+            Assert.IsFalse(musicList.Text.Contains("Boom"));
+
+            new MusicRecordsController().Clean();
         }
     }
 }

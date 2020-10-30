@@ -13,13 +13,7 @@ namespace PairProject_MusicRecordsRest.Controllers
     [ApiController]
     public class MusicRecordsController : ControllerBase
     {
-        private static List<MusicRecord> list = new List<MusicRecord>()
-        {
-            new MusicRecord(1, "Boom", "Slash", 1680, 1997),
-            new MusicRecord(2, "My Man", "Christiana", 900, 1986),
-            new MusicRecord(3, "Aathma", "Persefone", 4500, 2014),
-            new MusicRecord(4, "Jeg har en hund med fire poter albummet", "Shubidua", Int32.MaxValue, Int32.MinValue)
-        };
+        private static List<MusicRecord> list = Program.GetRecordMockup();
 
         public List<MusicRecord> List
         {
@@ -130,6 +124,13 @@ namespace PairProject_MusicRecordsRest.Controllers
             {
                 return true;
             }
+        }
+
+        [HttpDelete]
+        [Route("clean")]
+        public void Clean()
+        {
+            list = Program.GetRecordMockup();
         }
     }
 }
