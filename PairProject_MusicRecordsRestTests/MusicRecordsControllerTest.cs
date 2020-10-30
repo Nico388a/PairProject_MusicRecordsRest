@@ -30,7 +30,7 @@ namespace PairProject_MusicRecordsRestTests
         {
             MusicRecordQuery query = new MusicRecordQuery();
             query.Title = "Dead";
-            MusicRecord record = new MusicRecord("Dead Rock", "Gorm", 500, 1926);
+            MusicRecord record = new MusicRecord(0,"Dead Rock", "Gorm", 500, 1926);
             _controller.List.Add(record);
             IEnumerable<MusicRecord> filteredRecords = _controller.Search(query);
 
@@ -59,6 +59,19 @@ namespace PairProject_MusicRecordsRestTests
             _controller.Delete(new MusicRecordQuery(){Title = "Boom"});
 
             Assert.AreEqual(true, arrange > _controller.List.Count);
+        }
+
+        [TestMethod]
+        public void PutTest()
+        {
+            MusicRecord m1 = new MusicRecord(0, "Lightning", "Splat", 760, 1995);
+
+            _controller.Put(1, m1);
+
+            Assert.AreEqual(m1.Title, _controller.List[0].Title);
+            Assert.AreEqual(m1.Artist, _controller.List[0].Artist);
+            Assert.AreEqual(m1.Duration, _controller.List[0].Duration);
+            Assert.AreEqual(m1.YearOfPublication, _controller.List[0].YearOfPublication);
         }
         
     }
